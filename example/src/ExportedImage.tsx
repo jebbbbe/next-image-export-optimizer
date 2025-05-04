@@ -79,20 +79,22 @@ const generateImageURL = (
     }
   }
 
-  const imagesDomain = process.env.nextImageExportOptimizer_imagesDomain;
-  if(imagesDomain) {
-    correctedPath = imagesDomain + correctedPath;
-  }
-  
+ 
 
   const exportFolderName =
     process.env.nextImageExportOptimizer_exportFolderName ||
     "nextImageExportOptimizer";
   const basePathPrefixForStaticImages = basePath ? basePath + "/" : "";
 
-  let generatedImageURL = `${
-    isStaticImage ? basePathPrefixForStaticImages : correctedPath
-  }${exportFolderName}/${filename}-opt-${width}.${processedExtension.toUpperCase()}`;
+  const imagesDomain = process.env.nextImageExportOptimizer_imagesDomain;
+  let generatedImageURL
+  if(imagesDomain) {
+    generatedImageURL = imagesDomain + generatedImageURL;
+  }else{
+    generatedImageURL = `${
+      isStaticImage ? basePathPrefixForStaticImages : correctedPath
+      }${exportFolderName}/${filename}-opt-${width}.${processedExtension.toUpperCase()}`;
+  }
 
   // if the generatedImageURL is not starting with a slash, then we add one as long as it is not a remote image
   if (!isRemoteImage && generatedImageURL.charAt(0) !== "/" && !imagesDomain) {
