@@ -83,6 +83,7 @@ const generateImageURL = (
   if(imagesDomain) {
     correctedPath = imagesDomain + correctedPath;
   }
+  console.log(imagesDomain, correctedPath)
 
   const exportFolderName =
     process.env.nextImageExportOptimizer_exportFolderName ||
