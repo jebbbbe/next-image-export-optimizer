@@ -80,9 +80,9 @@ const generateImageURL = (
   }
 
   const imagesDomain = process.env.nextImageExportOptimizer_imagesDomain;
-  if(imagesDomain !== undefined) {
-    correctedPath = imagesDomain + correctedPath;
-  }
+  // if(imagesDomain !== undefined) {
+  //   correctedPath = imagesDomain + correctedPath;
+  // }
   
 
   const exportFolderName =
@@ -93,6 +93,10 @@ const generateImageURL = (
   let generatedImageURL = `${
     isStaticImage ? basePathPrefixForStaticImages : correctedPath
   }${exportFolderName}/${filename}-opt-${width}.${processedExtension.toUpperCase()}`;
+
+  if(imagesDomain !== undefined) {
+    generatedImageURL = imagesDomain + `/${exportFolderName}/${filename}-opt-${width}.${processedExtension.toUpperCase()}`;
+  }
 
   // if the generatedImageURL is not starting with a slash, then we add one as long as it is not a remote image
   if (!isRemoteImage && generatedImageURL.charAt(0) !== "/" && !imagesDomain) {
