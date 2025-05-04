@@ -83,7 +83,7 @@ const generateImageURL = (
   if(imagesDomain) {
     correctedPath = imagesDomain + correctedPath;
   }
-  console.log(imagesDomain, correctedPath)
+  
 
   const exportFolderName =
     process.env.nextImageExportOptimizer_exportFolderName ||
@@ -99,7 +99,10 @@ const generateImageURL = (
     // console.log('WE should add slash at start of');
     generatedImageURL = "/" + generatedImageURL;
   }
-
+  console.log("")
+  console.log(imagesDomain)
+  console.log(correctedPath)
+  console.log(generatedImageURL)
   return generatedImageURL;
 };
 
