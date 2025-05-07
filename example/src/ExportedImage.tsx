@@ -209,14 +209,17 @@ const optimizedLoader = ({
   return generateImageURL(_src, width, basePath);
 };
 
-const fallbackLoader = ({ src }: { src: string | StaticImageData }) => {
+const fallbackLoader = ({ src }) => {
   let _src = typeof src === "object" ? src.src : src;
-
   const isRemoteImage = _src.startsWith("http");
-
   // if the _src does not start with a slash, then we add one as long as it is not a remote image
+  const imagesDomain = process.env.nextImageExportOptimizer_imagesDomain;
+  if(imagesDomain !== undefined && !isRemoteImage) {
+    _src =  imagesDomain + _src
+    return _src
+  }
   if (!isRemoteImage && _src.charAt(0) !== "/") {
-    _src = "/" + _src;
+      _src = "/" + _src;
   }
   return _src;
 };
