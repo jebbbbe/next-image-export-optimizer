@@ -205,7 +205,11 @@ const optimizedLoader = ({
   return generateImageURL(_src, width, basePath);
 };
 
-const fallbackLoader = ({ src }) => {
+interface LoaderProps {
+  src: string | { src: string };
+}
+
+const fallbackLoader = ({ src }: LoaderProps) => {
   let _src = typeof src === "object" ? src.src : src;
   const isRemoteImage = _src.startsWith("http");
   // if the _src does not start with a slash, then we add one as long as it is not a remote image
